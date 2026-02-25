@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ritwik AI Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background: linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#000428);
+  background-size:400% 400%;
+  animation: gradient 10s ease infinite;
+  color:white;
+}
+
+@keyframes gradient{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+header{
+  display:flex;
+  justify-content:space-between;
+  padding:20px 8%;
+  align-items:center;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:800;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:20px;
+  font-weight:500;
+  transition:.3s;
+}
+
+nav a:hover{
+  color:#00f2ff;
+}
+
+.hero{
+  text-align:center;
+  padding:100px 20px;
+}
+
+.hero h1{
+  font-size:48px;
+  font-weight:800;
+  margin-bottom:20px;
+}
+
+.hero p{
+  font-size:18px;
+  max-width:600px;
+  margin:auto;
+  opacity:.8;
+}
+
+.btn{
+  display:inline-block;
+  margin-top:30px;
+  padding:14px 35px;
+  background:#00f2ff;
+  color:black;
+  border-radius:50px;
+  font-weight:600;
+  text-decoration:none;
+  transition:.3s;
+}
+
+.btn:hover{
+  background:white;
+  transform:scale(1.05);
+}
+
+.section{
+  padding:80px 8%;
+  text-align:center;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+  margin-top:40px;
+}
+
+.card{
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(10px);
+  padding:30px;
+  border-radius:20px;
+  transition:.4s;
+}
+
+.card:hover{
+  transform:translateY(-10px);
+  background:rgba(255,255,255,0.2);
+}
+
+.price{
+  font-size:36px;
+  font-weight:800;
+  margin:20px 0;
+}
+
+footer{
+  text-align:center;
+  padding:30px;
+  background:rgba(0,0,0,0.4);
+  margin-top:50px;
+}
+
+@media(max-width:768px){
+  .hero h1{
+    font-size:32px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Ritwik AI</div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Features</a>
+    <a href="#">Pricing</a>
+    <a href="#">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Build Smarter with AI</h1>
+  <p>Create powerful AI tools, automate workflows, and scale your business with next-gen technology.</p>
+  <a href="#" class="btn">Get Started</a>
+</section>
+
+<section class="section">
+  <h2>Premium Features</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>⚡ Fast Performance</h3>
+      <p>Lightning speed AI responses and optimized backend.</p>
+    </div>
+    <div class="card">
+      <h3>🔒 Secure</h3>
+      <p>Advanced encryption and secure API integrations.</p>
+    </div>
+    <div class="card">
+      <h3>🌍 Multi Platform</h3>
+      <p>Works on Web, Mobile, and Cloud seamlessly.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Pricing Plans</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Basic</h3>
+      <div class="price">₹499</div>
+      <p>Starter AI Access</p>
+      <a href="#" class="btn">Buy Now</a>
+    </div>
+    <div class="card">
+      <h3>Pro</h3>
+      <div class="price">₹999</div>
+      <p>Advanced AI Tools + API</p>
+      <a href="#" class="btn">Buy Now</a>
+    </div>
+    <div class="card">
+      <h3>Enterprise</h3>
+      <div class="price">₹1999</div>
+      <p>Full Custom AI Suite</p>
+      <a href="#" class="btn">Buy Now</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Ritwik AI. All Rights Reserved.
+</footer>
+
+</body>
+</html>
