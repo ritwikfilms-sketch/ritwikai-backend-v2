@@ -1,84 +1,258 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import Razorpay from "razorpay";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ritwik AI - India’s Powerful AI Platform</title>
 
-dotenv.config();
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
-const app = express();
-const PORT = process.env.PORT || 5000;
-
-// -------------------
-// Middlewares
-// -------------------
-app.use(cors({
-  origin: "*", // production me specific domain daalna
-  methods: ["GET", "POST"]
-}));
-
-app.use(express.json());
-
-// -------------------
-// Razorpay Setup
-// -------------------
-if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
-  console.error("❌ Razorpay keys missing in .env");
-  process.exit(1);
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
 }
 
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET
-});
+body{
+  background:#0f172a;
+  color:white;
+}
 
-// -------------------
-// Routes
-// -------------------
-app.get("/", (req, res) => {
-  res.status(200).json({
-    status: "success",
-    message: "🚀 Ritwik AI Backend Running Successfully"
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 8%;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+}
+
+.logo{
+  font-size:24px;
+  font-weight:700;
+  color:#38bdf8;
+}
+
+nav a{
+  margin-left:20px;
+  text-decoration:none;
+  color:white;
+}
+
+.hero{
+  text-align:center;
+  padding:100px 20px;
+}
+
+.hero h1{
+  font-size:48px;
+  background:linear-gradient(90deg,#38bdf8,#a855f7);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.hero p{
+  margin:20px 0;
+  font-size:18px;
+  color:#cbd5e1;
+}
+
+.btn{<p id="successMsg" style="color:#38bdf8; margin-top:10px;"></p>
+  padding:12px 25px;
+  margin:10px;
+  border:none;
+  border-radius:30px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.btn-primary{
+  background:#38bdf8;
+  color:black;
+}
+
+.btn-secondary{
+  background:#a855f7;
+  color:white;
+}
+
+.features{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+  padding:50px 8%;
+}
+
+.card{
+  background:rgba(255,255,255,0.05);
+  padding:25px;
+  border-radius:15px;
+}
+
+.pricing{
+  text-align:center;
+  padding:80px 20px;
+}
+
+.price-card{
+  display:inline-block;
+  background:rgba(255,255,255,0.05);
+  margin:20px;
+  padding:30px;
+  border-radius:20px;
+  width:280px;
+}
+
+.price{
+  font-size:28px;
+  margin:15px 0;
+  color:#38bdf8;
+}
+
+.comment-section{
+  padding:60px 8%;
+}
+
+.comment-box{
+  max-width:600px;
+  margin:auto;
+}
+
+.comment-box input,
+.comment-box textarea{
+  width:100%;
+  padding:10px;
+  margin-bottom:10px;
+  border-radius:8px;
+  border:none;
+}
+
+.comment{
+  background:rgba(255,255,255,0.05);
+  padding:15px;
+  margin-bottom:10px;
+  border-radius:10px;
+}
+
+footer{
+  text-align:center;
+  padding:20px;
+  background:#020617;
+  margin-top:50px;
+  color:#94a3b8;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Ritwik AI</div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>India’s Powerful Multi-Language AI Platform</h1>
+  <p>Create. Analyze. Generate. Automate. All in One AI.</p>
+  <button class="btn btn-primary">Try Free</button>
+  <button class="btn btn-secondary" onclick="payNow()">Upgrade to Pro</button>
+</section>
+
+<section class="features" id="features">
+  <div class="card">
+    <h3>🤖 AI Chat</h3>
+    <p>Smart AI Assistant for all your needs.</p>
+  </div>
+  <div class="card">
+    <h3>🎨 Image Generator</h3>
+    <p>Create stunning AI images instantly.</p>
+  </div>
+  <div class="card">
+    <h3>📝 AI Writer</h3>
+    <p>Generate blogs, captions, scripts & more.</p>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <h1>Choose Your Plan</h1>
+
+  <div class="price-card">
+    <h2>Free</h2>
+    <p class="price">₹0</p>
+    <p>Limited Chat</p>
+  </div>
+
+  <div class="price-card">
+    <h2>Pro</h2>
+    <p class="price">₹199 / month</p>
+    <p>Unlimited Chat</p>
+    <button class="btn btn-primary" onclick="payNow()">Buy Now</button>
+  </div>
+</section>
+
+<!-- COMMENT SECTION -->
+<section class="comment-section">
+  <h2 style="text-align:center; margin-bottom:20px;">💬 User Comments</h2>
+  <div class="comment-box">
+    <input type="text" id="username" placeholder="Your Name">
+    <textarea id="commentText" placeholder="Write your comment..."></textarea>
+    <button class="btn btn-primary" onclick="addComment()">Post Comment</button>
+    <div id="commentsList" style="margin-top:20px;"></div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Ritwik AI | Built in India 🇮🇳
+</footer>
+
+<script>
+function payNow(){
+  alert("Connect Razorpay Key Here");
+}
+
+function loadComments(){
+  const comments = JSON.parse(localStorage.getItem("ritwikComments")) || [];
+  const list = document.getElementById("commentsList");
+  list.innerHTML = "";
+
+  comments.forEach(c => {
+    list.innerHTML += `
+      <div class="comment">
+        <strong>${c.name}</strong>
+        <p>${c.text}</p>
+      </div>
+    `;
   });
-});
+}
 
-app.post("/api/create-order", async (req, res) => {
-  try {
-    const { amount } = req.body;
+function addComment(){
+  const name = document.getElementById("username").value;
+  const text = document.getElementById("commentText").value;
 
-    // Validation
-    if (!amount || isNaN(amount) || amount <= 0) {
-      return res.status(400).json({
-        status: "error",
-        message: "Invalid amount"
-      });
-    }
-
-    const options = {
-      amount: Math.round(amount * 100), // convert ₹ to paise safely
-      currency: "INR",
-      receipt: ⁠ receipt_${Date.now()} ⁠
-    };
-
-    const order = await razorpay.orders.create(options);
-
-    res.status(200).json({
-      status: "success",
-      order
-    });
-
-  } catch (error) {
-    console.error("Order Error:", error);
-
-    res.status(500).json({
-      status: "error",
-      message: "Failed to create order"
-    });
+  if(name === "" || text === ""){
+    alert("Please fill all fields!");
+    return;
   }
-});
 
-// -------------------
-// Server Start
-// -------------------
-app.listen(PORT, () => {
-  console.log(⁠ 🚀 Server running on port ${PORT} ⁠);
-});
+  const comments = JSON.parse(localStorage.getItem("ritwikComments")) || [];
+  comments.push({name, text});
+  localStorage.setItem("ritwikComments", JSON.stringify(comments));
+
+  document.getElementById("username").value = "";
+  document.getElementById("commentText").value = "";
+
+  loadComments();
+}
+
+loadComments();
+</script>
+
+</body>
+</html>
