@@ -1,22 +1,23 @@
-  import express from "express";
-
+ const express = require('express');
 const app = express();
+
 app.use(express.json());
 
-app.post("/slack/events", (req, res) => {
-  const body = req.body;
-
-  // Slack URL verification
-  if (body.type === "url_verification") {
-    return res.status(200).send(body.challenge);
-  }
-
-  res.status(200).send("OK");
+// 1. स्लैक वेरिफिकेशन के लिए (Challenge logic)
+app.post('/slack/events', (req, res) => {
+    if (req.body.challenge) {
+        return res.status(200).send(req.body.challenge);
+    }
+    res.status(200).send('OK');
 });
 
-const PORT = process.env.PORT || 3000;
+// 2. आपकी वेबसाइट और मैप के लिए
+app.get('/', (req, res) => {
+    res.send('<h1>Ritwik AI: World Class E-com Dashboard Live!</h1>');
+});
 
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log("Server running on port " + PORT);
+    console.log(⁠ Server is running on port ${PORT} ⁠);
 });
 
