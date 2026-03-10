@@ -1,4 +1,4 @@
-import express from "express";
+  import express from "express";
 
 const app = express();
 app.use(express.json());
@@ -8,14 +8,15 @@ app.post("/slack/events", (req, res) => {
 
   // Slack URL verification
   if (body.type === "url_verification") {
-    return res.json({ challenge: body.challenge });
+    return res.status(200).send(body.challenge);
   }
 
-  // Other Slack events
   res.status(200).send("OK");
 });
 
 const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
+
