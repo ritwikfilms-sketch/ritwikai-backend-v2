@@ -1,17 +1,21 @@
-const express = require("express");
-require("dotenv").config();
+import express from "express";
 
 const app = express();
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Ritwik AI Backend Running 🚀");
+app.post("/slack/events", (req, res) => {
+  const body = req.body;
+
+  // Slack URL verification
+  if (body.type === "url_verification") {
+    return res.json({ challenge: body.challenge });
+  }
+
+  // Other Slack events
+  res.status(200).send("OK");
 });
 
-const PORT = process.env.PORT || 5000;
-
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(⁠ Server running on port ${PORT} ⁠);
+  console.log("Server running on port " + PORT);
 });
-
-
